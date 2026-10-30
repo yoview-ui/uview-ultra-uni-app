@@ -667,6 +667,12 @@
             }
         },
         {
+            "path": "pages/componentsD/lottie/lottie",
+            "style": {
+                "navigationBarTitleText": "Lottie动画"
+            }
+        },
+        {
             "path": "pages/componentsD/markdown/markdown",
             "style": {
                 "navigationBarTitleText": "Markdown解析器"
@@ -760,6 +766,24 @@
             "path": "pages/example/template",
             "style": {
                 "navigationBarTitleText": "template"
+            }
+        },
+        {
+            "path": "pages/example/vapor-theme-child-iso",
+            "style": {
+                "navigationBarTitleText": "vapor-theme-child-iso"
+            }
+        },
+        {
+            "path": "pages/example/vapor-theme-child",
+            "style": {
+                "navigationBarTitleText": "vapor-theme-child"
+            }
+        },
+        {
+            "path": "pages/example/vapor-theme",
+            "style": {
+                "navigationBarTitleText": "蒸汽主题实测"
             }
         }
     ],

@@ -399,6 +399,10 @@ export default [
                 "path": "pages/componentsD/httpTest/httpTest"
             },
             {
+                "title": "Lottie动画",
+                "path": "pages/componentsD/lottie/lottie"
+            },
+            {
                 "title": "Markdown解析器",
                 "path": "pages/componentsD/markdown/markdown"
             },
@@ -531,6 +535,18 @@ export default [
             {
                 "title": "template",
                 "path": "pages/example/template"
+            },
+            {
+                "title": "vapor-theme-child-iso",
+                "path": "pages/example/vapor-theme-child-iso"
+            },
+            {
+                "title": "vapor-theme-child",
+                "path": "pages/example/vapor-theme-child"
+            },
+            {
+                "title": "蒸汽主题实测",
+                "path": "pages/example/vapor-theme"
             }
         ]
     }

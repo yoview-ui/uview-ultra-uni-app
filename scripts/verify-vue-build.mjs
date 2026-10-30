@@ -50,6 +50,13 @@ const PLATFORM = process.env.VERIFY_PLATFORM || 'H5'
 
 const SKIP_DIRS = new Set(['node_modules', 'luch-request', 'marked-uts', 'vite'])
 const SKIP_JS_FILES = new Set([path.join(LIB, 'index.js')])
+/**
+ * 第三方渲染引擎（lottie-web / lottie-miniprogram 的压缩产物）。
+ * 它们按设计依赖运行时全局（document / window / OffscreenCanvas / wx），
+ * 既不该被 no-undef 扫描，也不该在 Node 里做模块加载冒烟。
+ */
+const THIRD_PARTY_ENGINE_DIRS = [path.join(COMPONENTS, 'up-lottie', 'libs')]
+const isThirdPartyEngine = (file) => THIRD_PARTY_ENGINE_DIRS.some((dir) => file.startsWith(dir + path.sep))
 
 /** 条件编译的平台开关；uview-ultra 的源码里大量使用 #ifdef，必须先按平台裁剪再解析 */
 const PLATFORM_FLAGS = {
@@ -318,7 +325,7 @@ function scanSfcFiles() {
 /* ------------------------------------------------- B. 未声明标识符扫描（no-undef） */
 
 function scanUndefinedIdentifiers() {
-    const files = walk(LIB, (file) => file.endsWith('.js') && !SKIP_JS_FILES.has(file)).sort(byRelativePath)
+    const files = walk(LIB, (file) => file.endsWith('.js') && !SKIP_JS_FILES.has(file) && !isThirdPartyEngine(file)).sort(byRelativePath)
     for (const file of files) {
         const source = preprocess(fs.readFileSync(file, 'utf8'), PLATFORM).code
         let ast
@@ -398,7 +405,7 @@ function installHostStubs() {
 }
 
 async function smokeModules() {
-    const files = walk(LIB, (file) => file.endsWith('.js') && !SKIP_JS_FILES.has(file)).sort(byRelativePath)
+    const files = walk(LIB, (file) => file.endsWith('.js') && !SKIP_JS_FILES.has(file) && !isThirdPartyEngine(file)).sort(byRelativePath)
     let skipped = 0
     for (const file of files) {
         const raw = fs.readFileSync(file, 'utf8')
